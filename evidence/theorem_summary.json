@@ -1,0 +1,30 @@
+{
+  "paper": "20hdQQQrA4",
+  "source": "repro/outputs/theorem_certificates.json",
+  "status": "VERIFIED_SCOPED",
+  "all_valid": true,
+  "claims": {
+    "C1": {
+      "valid": true,
+      "scope": "Every nonempty input-dependent affine-inequality polyhedron under Assumption 3.2 and arbitrary finite constraint count.",
+      "proof": "Minimal-face enumeration plus exact Moore-Penrose algebra."
+    },
+    "C2": {
+      "valid": true,
+      "scope": "Each differentiable region with a fixed selected candidate.",
+      "proof": "Null-space projector identity and local gradients to f_theta and w_phi.",
+      "qualification": "End-to-end fixed orthogonal projection can also reach its oracle."
+    },
+    "C3": {
+      "valid": true,
+      "scope": "Theorem 3.5 assumptions, finite p >= 1, and the stated universal approximator class.",
+      "proof": "Zero-null-network construction, feasible projection candidate, selection bound, and norm-equivalence chain."
+    }
+  },
+  "finite_corroboration": {
+    "random_instances": 2000,
+    "maximum_residual": 4.340972026284362e-13,
+    "rank_deficient_controls": true,
+    "negative_controls": true
+  }
+}

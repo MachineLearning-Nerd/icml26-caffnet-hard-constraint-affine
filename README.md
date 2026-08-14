@@ -1,118 +1,165 @@
-# CAffNet: Hard Constraint-Affine Neural Networks — reproduction
+# CAffNet: Hard Constraint-Affine Neural Networks
 
-Clean-room CPU reproduction of Zhao, Lee, Jeon, and Yong (2026),
-[arXiv:2605.24437](https://arxiv.org/abs/2605.24437), OpenReview
-[`20hdQQQrA4`](https://openreview.net/forum?id=20hdQQQrA4).
+Scoped clean-room reproduction of **CAffNet: Hard Constraint-Affine Neural
+Networks** for the ICML 2026 reproduction collection.
 
-The primary evidence for the two universal claims is an executable theorem
-audit. Neural experiments at the paper's published width/epoch/data scale and
-an adversarial joint-optimization control provide independent corroboration.
+The repository separates proof-level results, finite neural corroboration, and
+the exact-task HardNet control. It does not claim an official benchmark score
+or a reproduction of unpublished matrices, seeds, checkpoints, or training
+weights.
 
-## Judged claims
+## Paper identity
 
-| Claim | Primary evidence | Result |
-|---|---|---|
-| C1 — hard input-dependent affine constraints of arbitrary cardinality | Lemma 3.3 / Theorem 3.4 minimal-face DAG and Moore-Penrose algebra | Universal certificate closes |
-| C2 — joint optimization beyond fixed orthogonal/parallel projections | Exact null-space projector/gradient certificate plus five-seed trained control | Architectural claim reproduced with qualification |
-| C3 — universal approximation plus hard adherence for every input | Independent Euclidean-projection UAT proof combined with C1 | Full conjunctive certificate closes |
+| Field | Value |
+| --- | --- |
+| Paper | *CAffNet: Hard Constraint-Affine Neural Networks* |
+| Authors | Yang Zhao, Jungeun Lee, Jeong hwan Jeon, Sze Zheng Yong |
+| arXiv | [2605.24437](https://arxiv.org/abs/2605.24437) |
+| OpenReview | [20hdQQQrA4](https://openreview.net/forum?id=20hdQQQrA4) |
+| Audited source | arXiv v1; SHA-256 `33db803823608bdb76db20732f0a3a20aef32c5f4e22f4c4b148a2b7b6da9520` |
+| Repository role | Clean-room theorem audit, neural corroboration, and named-baseline control |
 
-## Proof-level evidence
+## Claim status
 
-For C1, CAffNet enumerates every constraint subset of size at most `n_out`.
-Every nonempty polyhedron has a minimal face defined by at most `n_out`
-independent active rows. For that enumerated subset,
+| Claim | Status | What is actually established |
+| --- | --- | --- |
+| C1 — hard satisfaction for arbitrary finite input-dependent affine constraints | `VERIFIED_SCOPED` | Minimal-face enumeration plus exact Moore–Penrose algebra establishes a feasible candidate under the paper's assumptions. |
+| C2 — jointly trainable null-space path beyond fixed projections | `VERIFIED_SCOPED_WITH_QUALIFICATION` | The projector identity, gradients, and five-seed control reproduce the trainable path; a fixed orthogonal model trained end-to-end reaches its oracle, so stronger uniqueness/superiority wording is not claimed. |
+| C3 — universal approximation with hard adherence | `VERIFIED_SCOPED` | An independent proof audit verifies the paper's approximation chain and exact Theorem 3.5 constant under its assumptions; finite experiments are corroboration only. |
+| S1 — named HardNet-Aff control on the paper's unicycle task | `SCOPED_EXACT_TASK_AUDIT` | The exact enforcement layers are compared with zero learned correction. CAffNet is collision-free and feasible in the audit; no goal-arrival or trained-weight claim is made. |
 
-```text
-P = f - A^dagger(Af-b) + (I-A^dagger A)w
-```
+The scope and evidence for every row are recorded in
+[`docs/CLAIM_EVIDENCE.md`](docs/CLAIM_EVIDENCE.md). `VERIFIED_SCOPED` means
+that the stated local proof or experiment passes; it is deliberately narrower
+than “the entire paper is reproduced.”
 
-lies in the entire minimal face for arbitrary `f,w`, making the filtered
-candidate set nonempty. Equation (6) therefore returns a feasible output for
-every input and any finite number `m` of constraints, including dependent and
-redundant rows.
+## How each claim is produced
 
-For C2, Equation (4) rewrites as `P=A^dagger b+N(f_theta+w_phi)` with
-`N=I-A^dagger A`, the projector onto `null(A)`. Locally
-`dP/df=dP/dw=N`, so both network blocks receive gradients. The learned head
-adds an independently parameterized null-space path and contains fixed
-orthogonal projection (`w=0`) as a special case. It is not claimed to enlarge
-the final function class when a projected `f_theta` is itself trained
-end-to-end.
+### C1 — arbitrary-cardinality hard constraints
 
-For C3, choose `w_phi=0` exactly and let `q` be the Euclidean projection of an
-unconstrained approximant `f_theta` onto the safe polyhedron. Projection
-optimality and conic Caratheodory show that `q` is one of CAffNet's enumerated
-feasible candidates. The `p`-nearest selection and norm equivalence give
+[`repro/src/theorem_certificates.py`](repro/src/theorem_certificates.py)
+constructs a proof DAG for the minimal-face argument. For a selected face it
+checks the identity
 
 ```text
-||P*-f_target||_p <= (n_out+1)||f_theta-f_target||_p.
+P_gamma = f - A_gamma^dagger(A_gamma f - b_gamma)
+          + (I - A_gamma^dagger A_gamma) w.
 ```
 
-Choosing the underlying approximant within `epsilon/(n_out+1)` proves density
-for every finite `p>=1`. C1 supplies hard adherence simultaneously.
+The minimal face uses at most `n_out` independent active rows, so it is among
+the enumerated subsets even when the original system has more constraints or
+dependent/redundant rows. The rendered artifact is
+[`repro/outputs/theorem_certificates.json`](repro/outputs/theorem_certificates.json);
+the finite 2,000-instance and negative-control summary is
+[`outputs/caffnet_summary.json`](outputs/caffnet_summary.json).
 
-## Executed neural evidence
+### C2 — joint optimization
 
-- Paper-spec Scenario A: three hidden ReLU layers of width 200, 50 training
-  points, 400 test points, 50,000 epochs, Adam `1e-4`, five seeds. CAffNet mean
-  test MSE is `0.0029899` versus paper CAffNet-FF `0.0020±0.0032`; all CAffNet
-  violations are exactly zero, while every soft-NN seed violates.
-- Dimension-matched Scenario B: `n_out=n_ineq=5`, `n_eq=3`, 1,000 train/test
-  inputs, 10,000 epochs, five seeds. All CAffNet runs are feasible below
-  `1e-12`. The paper's random matrices/seeds are unavailable and the clean-room
-  inequalities are inactive, so Table 3 objectives are not claimed reproduced.
-- Joint null-space control: five seeds, separate trainable `f_theta,w_phi`.
-  Mean joint oracle gap `1.0652e-4`, mean posthoc gap `4.3045e-1`, mean
-  `w_phi` ablation increase `7.5016e-1`, hard residual `2.97e-16`, and nonzero
-  gradients to both blocks. A fixed orthogonal projection trained end-to-end
-  also reaches its oracle (`1.1732e-4` gap), ruling out a stronger uniqueness
-  claim.
-- Tight inequality stress: at the paper's 5-output/5-inequality/3-equality
-  dimensions, an LP-certified `h_scale=0.25` variant activates the inequalities.
-  Across five seeds, fixed orthogonal and parallel projections have maximum
-  inequality violations above `0.5`, while CAffNet stays below `1.2e-14` on
-  all constraints. This is a disclosed synthetic stress case, not Table 3.
+The same source proves
+
+```text
+P = A^dagger b + (I - A^dagger A)(f_theta + w_phi),
+```
+
+so both network paths receive the null-space projector gradient on a fixed
+candidate region. The exact rank-deficient certificate and the dependency-free
+five-seed control are rendered by
+[`repro/src/run_joint_control_stdlib.py`](repro/src/run_joint_control_stdlib.py)
+and stored in [`outputs/joint_control/`](outputs/joint_control/). The control
+reports nonzero gradients to both paths, mean joint objective gap `1.0652e-4`,
+mean post-hoc gap `0.4304`, mean fixed-in-loop gap `1.1732e-4`, and hard
+constraint residual `2.97e-16`.
+
+The historical adversarial parameterization audit is preserved on
+[`experiment/joint-optimization-control`](docs/BRANCH_AUDIT.md). It shows that
+CAffNet's two-branch formula is algebraically equivalent to end-to-end
+projection of `g=f+w` when the comparison class can represent the sum. That
+qualification is part of the result, not an omitted caveat.
+
+### C3 — universal approximation plus adherence
+
+[`repro/src/verify_theorem35_exact_bound.py`](repro/src/verify_theorem35_exact_bound.py)
+and [`repro/src/audit_theorem35_exact_bound.py`](repro/src/audit_theorem35_exact_bound.py)
+check the paper's exact constant for dimensions `1..512`, 1,000 rational
+projectors, and fail-sensitive negative controls. The full proof chain is
+explained in [`docs/THEOREM_AUDIT.md`](docs/THEOREM_AUDIT.md). The committed
+PyTorch runs in [`outputs/training_analysis.json`](outputs/training_analysis.json)
+reproduce the paper-spec 1-D protocol and hard feasibility, while clearly
+marking the unavailable Table 3 matrices and seeds as not reproduced.
+
+### S1 — exact HardNet control
+
+[`repro/src/audit_hardnet_unicycle_control.py`](repro/src/audit_hardnet_unicycle_control.py)
+transcribes the paper's test state, 13 affine rows, 150-step horizon, and the
+official HardNet-Aff formula pinned to a specific upstream revision. An
+independent verifier recomputes the committed output and checks the NumPy and
+PyTorch formulas. See [`pages/claim-hardnet-unicycle-control/page.md`](pages/claim-hardnet-unicycle-control/page.md)
+for the exact boundary: the learned correction is zero, and CAffNet does not
+reach the goal in this control audit.
 
 ## Repository map
 
-- `repro/src/theorem_certificates.py` — universal C1/C3 proofs and exact C2
-  projector/gradient certificate.
-- `repro/src/run_theorem_audit.py` — portable certificate renderer.
-- `docs/THEOREM_AUDIT.md` — self-contained proof and imported dependencies.
-- `repro/src/caffnet_train.py` — paper-spec and dimension-matched PyTorch runs.
-- `repro/src/run_joint_control_stdlib.py` — dependency-free five-seed joint
-  null-space control.
-- `repro/src/analyze_training.py` and `docs/TRAINING_AUDIT.md` — fail-closed
-  evidence aggregation and limitations.
-- `repro/tests/` — 23 proof, algebra, neural-output, and negative-control tests.
+- `repro/src/` — implementation, theorem certificates, producers, and independent verifiers.
+- `repro/tests/` — focused algebra, proof-DAG, training-output, and negative-control tests.
+- `repro/outputs/` — generated theorem certificate and committed finite audit artifacts.
+- `outputs/` — raw training, joint-control, and HardNet summaries/logs.
+- `evidence/` — compact claim summaries used by the publication gate.
+- `docs/` — claim, source, branch, training, theorem, research-log, and publication-gate documentation.
+- `pages/` — durable companion pages for the exact-bound and HardNet audits.
+- [`sources.json`](sources.json) — paper, implementation, and artifact provenance.
+
+The branch policy is documented in [`docs/BRANCH_AUDIT.md`](docs/BRANCH_AUDIT.md):
+`main` is the integrated publication surface, while the named experiment
+branch preserves the historical C2 parameterization audit.
 
 ## Reproduce
 
-```bash
-uv venv --python 3.12 .venv
-uv sync --python .venv/bin/python
-.venv/bin/python repro/src/run_theorem_audit.py
-.venv/bin/python repro/src/analyze_training.py
-.venv/bin/python -m pytest -q repro/tests
-.venv/bin/python repro/src/run_caffnet.py
-```
-
-The joint neural control reruns in about 14 seconds on an Apple M2 CPU:
+With `uv`:
 
 ```bash
-.venv/bin/python repro/src/run_joint_control_stdlib.py \
+uv sync --frozen
+uv run python repro/src/run_theorem_audit.py
+uv run python repro/src/verify_theorem35_exact_bound.py
+uv run python repro/src/audit_theorem35_exact_bound.py
+uv run python repro/src/audit_hardnet_unicycle_control.py
+uv run python repro/src/verify_hardnet_unicycle_control.py
+uv run python repro/src/run_joint_control_stdlib.py \
   --output-dir outputs/joint_control --seeds 0,1,2,3,4 \
   --steps 800 --hidden 12 --lr 0.01 --train-points 64 --test-points 501
+uv run pytest -q repro/tests
+uv run python repro/src/publication_gate.py --skip-producers
 ```
 
-The longer PyTorch commands and raw logs are recorded under `outputs/`.
+The long PyTorch training commands are recorded in `outputs/`; rerunning them
+is optional and should not be confused with reproducing the paper's unavailable
+random matrices, seeds, or weights.
 
-## Verified state and scope
+## Citation
 
-- Paper PDF SHA-256:
-  `33db803823608bdb76db20732f0a3a20aef32c5f4e22f4c4b148a2b7b6da9520`.
-- All three proof DAGs report `valid=true`; combined `all_valid=true`.
-- 23/23 tests pass; pinned dependencies are NumPy 2.5.1, SciPy 1.18.0,
-  PyTorch 2.13.0, and pytest 9.1.1.
-- Imported standard results are disclosed in the theorem audit. Finite random
-  matrices and width sweeps are corroboration only, never universal evidence.
+```bibtex
+@article{zhao2026caffnet,
+  title         = {CAffNet: Hard Constraint-Affine Neural Networks},
+  author        = {Zhao, Yang and Lee, Jungeun and Jeon, Jeong hwan and Yong, Sze Zheng},
+  journal       = {arXiv preprint arXiv:2605.24437},
+  year          = {2026},
+  doi           = {10.48550/arXiv.2605.24437},
+  url           = {https://arxiv.org/abs/2605.24437}
+}
+```
+
+## Thank you
+
+Thank you to Yang Zhao, Jungeun Lee, Jeong hwan Jeon, and Sze Zheng Yong for
+the clear formulation of hard constraint-affine neural networks and for making
+the paper precise enough to support an independent, scoped audit. This
+repository is an independent reproduction effort and is not affiliated with
+the authors.
+
+## Provenance and limits
+
+The source boundary, pinned HardNet dependency, unavailable artifacts, and
+clean-room decisions are recorded in [`docs/SOURCE_AUDIT.md`](docs/SOURCE_AUDIT.md).
+The publication checklist and its machine-readable output are in
+[`docs/PUBLICATION_GATE.md`](docs/PUBLICATION_GATE.md) and
+[`outputs/publication_gate.json`](outputs/publication_gate.json) after the gate
+has been run.

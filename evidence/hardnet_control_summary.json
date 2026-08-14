@@ -1,0 +1,36 @@
+{
+  "source": "outputs/hardnet_unicycle_results.json",
+  "status": "SCOPED_EXACT_TASK_AUDIT",
+  "task": {
+    "initial_state": [-4.5, 0.0, 0.5],
+    "constraint_rows": 13,
+    "dt": 0.1,
+    "steps": 150,
+    "learned_correction": "zero"
+  },
+  "paper_state": {
+    "caffnet": {
+      "collisions": [false, false, false],
+      "max_affine_violation": 1.2939952928614495e-16,
+      "final_goal_distance": 3.0938056297855776
+    },
+    "hardnet_aff": {
+      "collisions": [true, false, true],
+      "first_collision_steps": [54, null, 39],
+      "max_affine_violation": 1.9527903967209406
+    }
+  },
+  "controls": {
+    "float32_preserves_outcome": true,
+    "row_permutations_preserve_outcome": true,
+    "neighborhood_caffnet_safe_all": true,
+    "neighborhood_hardnet_collides_all": true,
+    "dropping_obstacle_rows_causes_caffnet_collision": true,
+    "hardnet_violated_rows_only_removes_collision": true
+  },
+  "limitations": [
+    "No trained weights are available.",
+    "No goal-arrival claim is made.",
+    "This isolates the enforcement layers rather than reproducing the full benchmark."
+  ]
+}

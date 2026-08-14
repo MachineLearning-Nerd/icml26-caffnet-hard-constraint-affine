@@ -1,0 +1,39 @@
+{
+  "source": "outputs/training_analysis.json",
+  "paper_spec_scenario_a": {
+    "status": "PARTIAL_REPRODUCTION",
+    "architecture": "3 hidden ReLU layers, width 200",
+    "train_points": 50,
+    "test_points": 400,
+    "epochs": 50000,
+    "seeds": 5,
+    "caffnet_test_mse_mean": 0.002989906412409327,
+    "paper_mean": 0.002,
+    "paper_std": 0.0032,
+    "within_one_reported_std": true,
+    "all_caffnet_runs_hard_feasible": true,
+    "all_soft_nn_runs_have_test_violation": true
+  },
+  "paper_dimension_scenario_b": {
+    "status": "NOT_REPRODUCED",
+    "dimensions": {
+      "n_out": 5,
+      "n_inequality": 5,
+      "n_equality": 3
+    },
+    "seeds": 5,
+    "caffnet_max_inequality_violation": 8.881784197001252e-16,
+    "caffnet_max_equality_violation": 4.440892098500626e-15,
+    "reason": "Paper matrices and seeds are unavailable; the clean-room inequalities are inactive, so Table 3 objectives are not claimed."
+  },
+  "tight_stress": {
+    "status": "SCOPED_CORROBORATION",
+    "h_scale": 0.25,
+    "seeds": 5,
+    "caffnet_max_inequality_violation": 5.773159728050814e-15,
+    "caffnet_max_equality_violation": 1.1324274851176597e-14,
+    "orthogonal_min_seed_max_violation": 0.8069979689124491,
+    "parallel_min_seed_max_violation": 0.5909483248467287,
+    "reason": "Synthetic LP-guarded stress variant, not the unpublished Table 3 instance."
+  }
+}

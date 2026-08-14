@@ -1,41 +1,37 @@
-# STATUS — CAffNet (`20hdQQQrA4`)
+# Status — CAffNet (`20hdQQQrA4`)
 
-**Session:** theorem and full-neural upgrade. **Last updated:** 2026-07-19.
-**State:** evidence published; fresh public verdict pending.
+Last audited: 2026-08-14. Repository target: `icml26-caffnet-hard-constraint-affine`.
 
-## Evidence
+## Current verdict
 
-- C1 universal minimal-face and Moore-Penrose certificate closes for arbitrary
-  finite `m`, every input, dependent/redundant rows, and all ranks permitted by
-  Assumption 3.2.
-- C2 exact projector certificate proves the independent null-space path and
-  joint gradients. The five-seed control reproduces nonzero gradients,
-  load-bearing `w_phi`, and machine-precision feasibility; the successful
-  end-to-end fixed-orthogonal adversary is preserved as a qualification.
-- C3 independent Euclidean-projection proof closes the full UAT plus adherence
-  conjunction for every finite `p>=1`; the finite non-monotone width sweep is
-  not used to infer universality.
-- Paper-spec Scenario A runs five seeds at width 200 for 50,000 epochs: mean MSE
-  `0.0029899` lies within one paper-reported standard deviation of `0.0020`,
-  all CAffNet violations are zero, and every soft-NN seed violates.
-- Dimension-matched Scenario B is feasible below `1e-12` but is not presented
-  as a Table 3 objective reproduction because the source matrices are absent.
-- The five-seed tightened inequality stress has fixed-projection violations
-  above `0.5` while CAffNet remains below `1.2e-14`; it is explicitly marked
-  synthetic and LP-guarded, not the unpublished Table 3 instance.
-- 23/23 tests pass; proof JSON reports `all_valid=true`; joint rerun completed
-  in 13.73 seconds and reproduced every aggregate value.
+This is a **scoped pass** for the proof and exact-task obligations implemented
+here. It is not a claim that every numerical result in the paper has been
+reproduced.
 
-## Public-score boundary
+| Area | Status | Evidence boundary |
+| --- | --- | --- |
+| C1 hard feasibility | `VERIFIED_SCOPED` | Universal minimal-face and Moore–Penrose certificate; finite random controls are secondary. |
+| C2 joint optimization | `VERIFIED_SCOPED_WITH_QUALIFICATION` | Exact projector/gradient algebra and five-seed control; fixed orthogonal end-to-end control reaches its oracle. |
+| C3 UAT plus adherence | `VERIFIED_SCOPED` | Independent proof and exact Theorem 3.5 bound audit; no finite sweep is used as a universality proof. |
+| Paper-spec neural protocol | `PARTIAL_REPRODUCTION` | The 1-D protocol is matched within the reported MSE spread and stays feasible; unpublished benchmark inputs are unavailable. |
+| Table 3 dimensions | `NOT_REPRODUCED` | Random matrices and seeds are not in the paper; the clean-room inequalities are inactive. |
+| HardNet named baseline | `SCOPED_EXACT_TASK_AUDIT` | Exact enforcement-layer comparison on the paper's task with zero learned correction; goal arrival is not claimed. |
 
-The current official verdict references Space SHA `b20dab1...` and is
-`toy, toy, inconclusive` (2/6). No score increase is claimed until a fresh
-verdict references the published theorem-level revision
-`bd3a1cc6a779979920e56cc2291789e3c443a1d5`.
+## Checks
 
-The public 34-file reproduction bundle is available in
-[`DineshAI/20hdQQQrA4-artifacts`](https://huggingface.co/buckets/DineshAI/20hdQQQrA4-artifacts#reproduction-caffnet/repro-bundle-v2).
-It was clean-downloaded, matched the source inventory byte-for-byte, and
-passed all 23 tests plus both fail-closed analyzers after download.
+- The theorem artifact reports `all_valid=true` for C1, C2, and C3.
+- The exact-bound verifier covers dimensions 1–512, 1,000 rational projector
+  cases, oversized-`K` controls, and a non-projector negative control.
+- The joint-control artifact covers five seeds, nonzero gradients to both
+  parameter paths, hard residuals below `3e-16`, and both post-hoc and
+  end-to-end fixed-projection controls.
+- The HardNet audit independently recomputes the committed collision pattern,
+  checks all 13 rows over 150 steps, and passes float32 and row-permutation
+  controls.
 
-No Git commit or push has been made.
+## Reproduction boundary
+
+The paper's official implementation, benchmark matrices, training seeds,
+trained weights, and official score are not treated as available evidence.
+Their absence is recorded in [`docs/SOURCE_AUDIT.md`](docs/SOURCE_AUDIT.md), and
+the claim-by-claim consequences are in [`docs/CLAIM_EVIDENCE.md`](docs/CLAIM_EVIDENCE.md).

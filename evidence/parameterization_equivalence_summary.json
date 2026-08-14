@@ -1,0 +1,19 @@
+{
+  "source": "experiment/joint-optimization-control:outputs/parameterization_equivalence/summary.json",
+  "status": "QUALIFICATION_AUDIT",
+  "cases": 500,
+  "paired_output_error_max": 1.9984014443252818e-15,
+  "consistent_feasibility_residual_max": 1.4210854715202004e-14,
+  "moore_penrose_residual_max": 7.105427357601002e-15,
+  "f_vs_w_gradient_error_max": 0.0,
+  "direct_trajectory_error_max": 3.885780586188048e-15,
+  "input_dependent_equivalence_error_max": 4.440892098500626e-16,
+  "restricted_capacity_counterexample": true,
+  "conclusion": {
+    "strong_representational_reading": "Falsified when the comparison class is closed under sums: Eq. (4) is projection of g=f+w.",
+    "posthoc_reading": "Not falsified: training first and projecting later optimizes a different objective.",
+    "optimization_dynamics": "Separate neural parameterizations can change conditioning and implicit bias.",
+    "capacity_exception": "A second branch can add capacity relative to a restricted base class not closed under sums."
+  },
+  "source_boundary": "The rerunnable producer is preserved on the historical experiment branch; this compact summary is the canonical-main pointer."
+}
