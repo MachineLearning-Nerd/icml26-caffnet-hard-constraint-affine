@@ -1,0 +1,28 @@
+{
+  "repository": "icml26-caffnet-hard-constraint-affine",
+  "paper": "20hdQQQrA4",
+  "status": "PASS",
+  "checks": {
+    "project_name": true,
+    "paper_identity": true,
+    "paper_source_hash": true,
+    "claim_statuses": true,
+    "required_docs": true,
+    "citation_and_thanks": true,
+    "theorem_certificates": true,
+    "training_boundary": true,
+    "parameterization_qualification": true,
+    "hardnet_audit": true,
+    "no_stale_state": true,
+    "canonical_branch": true,
+    "branch_names": true,
+    "final_remote": true,
+    "commit_identity": true,
+    "no_private_workspace_path": true
+  },
+  "details": {
+    "canonical_branch": "main",
+    "final_remote": "https://github.com/MachineLearning-Nerd/icml26-caffnet-hard-constraint-affine.git",
+    "commit_identity": "unexpected identities: "
+  }
+}

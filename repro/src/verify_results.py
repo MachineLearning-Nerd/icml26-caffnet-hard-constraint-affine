@@ -88,8 +88,9 @@ def main() -> int:
     identities = git(root, "log", "--all", "--format=%an <%ae>%n%cn <%ce>").splitlines()
     check("commit_identity", bool(identities) and all(item == EXPECTED_IDENTITY for item in identities),
           "unexpected identities: " + ", ".join(sorted(set(item for item in identities if item != EXPECTED_IDENTITY))))
+    private_path_marker = "/Users/" + "dineshjinjala/"
     check("no_private_workspace_path", "dinesh.jinjala@mareana.com" not in git(root, "log", "--all", "--format=%B")
-          and "/Users/dineshjinjala/" not in "\n".join(
+          and private_path_marker not in "\n".join(
               (root / path).read_text(errors="ignore") for path in tracked if (root / path).is_file()
           ))
 
