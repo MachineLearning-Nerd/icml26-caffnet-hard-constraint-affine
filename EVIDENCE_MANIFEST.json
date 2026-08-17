@@ -38,7 +38,7 @@
     {"path": "outputs/joint_control/summary.json", "sha256": "5c20cc1d299106ef296076205c1c59d3767ef1c6e3eb6c89eede1a1cedc0f87d"},
     {"path": "outputs/joint_control/verification.json", "sha256": "da3ed1116a5783fc12e7701a40b1ddcff698fbf2a31b763e3af987e23f2c8801"},
     {"path": "outputs/joint_control/commands.txt", "sha256": "3db4c39b0dfc8044494adc67b59241474b0b0a1586ac560c35e20ff5d0a0fd1f"},
-    {"path": "outputs/joint_control/SHA256SUMS", "sha256": "741ab7923e0d45b50d12882fbb763b741146f04532c0804ce66a536b73437e3"},
+    {"path": "outputs/joint_control/SHA256SUMS", "sha256": "741ab792e3d0d45b50d12882fbb763b741146f04532c0804ce66a536b73437e3"},
     {"path": "repro/outputs/theorem_certificates.json", "sha256": "c5c2a7912d61683edda412ae1736231c4a60e1dd36bcb72293bff9cb1da651e9"},
     {"path": "repro/src/theorem_certificates.py", "sha256": "51a08c63d694e5a28694e7d6b598c852bf2d801fb1699809aba9052b14108fb4"},
     {"path": "repro/src/verify_results.py", "sha256": "af9a3d3cfce007328d51c65ced9d014b7a9b150ea1c840930ef06fa50428f65d"},
