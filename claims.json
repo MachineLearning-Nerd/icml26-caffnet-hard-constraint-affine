@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "repository": "MachineLearning-Nerd/icml26-caffnet-hard-constraint-affine",
+  "paper": {
+    "title": "CAffNet: Hard Constraint-Affine Neural Networks",
+    "authors": [
+      "Yang Zhao",
+      "Jungeun Lee",
+      "Jeong hwan Jeon",
+      "Sze Zheng Yong"
+    ],
+    "arxiv": "2605.24437",
+    "openreview": "20hdQQQrA4",
+    "source_revision": "arXiv v1"
+  },
+  "claims": [
+    {
+      "id": "C1",
+      "status": "verified_scoped",
+      "paper_statement": "CAffNet satisfies arbitrary finite input-dependent affine inequality constraints.",
+      "scope": "Theorem certificate under the paper's nonempty-polyhedron and continuity assumptions; finite controls are corroboration.",
+      "evidence": [
+        "repro/outputs/theorem_certificates.json",
+        "evidence/theorem_summary.json",
+        "outputs/caffnet_summary.json",
+        "docs/CLAIM_EVIDENCE.md"
+      ]
+    },
+    {
+      "id": "C2",
+      "status": "verified_scoped_with_qualification",
+      "paper_statement": "CAffNet supplies a jointly trainable null-space path beyond fixed projections.",
+      "scope": "Projector/gradient identities and five-seed controls pass; fixed orthogonal end-to-end training reaches its oracle, qualifying stronger uniqueness or universal-superiority wording.",
+      "evidence": [
+        "repro/outputs/theorem_certificates.json",
+        "outputs/joint_control/summary.json",
+        "outputs/joint_control/verification.json",
+        "evidence/parameterization_equivalence_summary.json"
+      ]
+    },
+    {
+      "id": "C3",
+      "status": "verified_scoped",
+      "paper_statement": "CAffNet preserves universal approximation while enforcing hard constraints.",
+      "scope": "Proof chain and exact Theorem 3.5 constant under the paper assumptions; finite training is not a universality proof.",
+      "evidence": [
+        "repro/outputs/theorem_certificates.json",
+        "pages/claim-theorem35-exact-bound/page.md",
+        "outputs/training_analysis.json",
+        "evidence/training_summary.json"
+      ]
+    },
+    {
+      "id": "S1",
+      "status": "scoped_exact_task_audit",
+      "paper_statement": "The named HardNet-Aff baseline can be compared on the paper's unicycle enforcement task.",
+      "scope": "Same 13-row, 150-step task and zero learned correction; no trained-weight or goal-arrival claim.",
+      "evidence": [
+        "outputs/hardnet_unicycle_results.json",
+        "outputs/hardnet_unicycle_audit.json",
+        "evidence/hardnet_control_summary.json",
+        "pages/claim-hardnet-unicycle-control/page.md"
+      ]
+    }
+  ],
+  "official_code": {
+    "repository": null,
+    "status": "not_available",
+    "note": "No official CAffNet implementation or benchmark release is treated as available."
+  },
+  "supplemental_hardnet": {
+    "repository": "https://github.com/azizanlab/hardnet",
+    "revision": "4f3ebe496c4081489c486e2711f25697a4c312fa"
+  },
+  "publication_allowed": false,
+  "publication_policy": "Keep theorem scope, finite corroboration, HardNet control limits, and unavailable official artifacts explicit; do not assert a paper-wide score or endorsement."
+}

@@ -134,6 +134,31 @@ The long PyTorch training commands are recorded in `outputs/`; rerunning them
 is optional and should not be confused with reproducing the paper's unavailable
 random matrices, seeds, or weights.
 
+## Standardized audit dossier
+
+The collection-level records make the evidence boundary and publication state
+machine-readable:
+
+- [CLAIM_EVIDENCE.md](CLAIM_EVIDENCE.md) maps each claim to its producer, checker, result, and limitation.
+- [SOURCE_AUDIT.md](SOURCE_AUDIT.md) records paper, source, HardNet, and unavailable-artifact provenance.
+- [ENVIRONMENT.md](ENVIRONMENT.md) records the lightweight verification boundary and the optional producer commands.
+- [REPORT.md](REPORT.md) states the scoped verdict and what is not claimed.
+- [BRANCH_AUDIT.md](BRANCH_AUDIT.md) and [branch-audit.md](branch-audit.md) describe every published branch.
+- [CITATION.cff](CITATION.cff) and [AUTHOR_THANK_YOU.md](AUTHOR_THANK_YOU.md) provide citation and author acknowledgment.
+- [claims.json](claims.json) and [EVIDENCE_MANIFEST.json](EVIDENCE_MANIFEST.json) bind statuses and file hashes.
+
+From a fresh clone, run:
+
+~~~sh
+python3 verify_final.py
+~~~
+
+This fail-closed check verifies the live two-branch GitHub state, the
+MachineLearning-Nerd attribution, the normalized branch names, the claim
+statuses, the theorem/training/HardNet evidence, and the publication gate. It
+does not rerun the long neural training or make unavailable Table 3 matrices,
+weights, seeds, or scores appear.
+
 ## Citation
 
 ```bibtex

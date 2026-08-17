@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If this scoped audit is useful, please cite the CAffNet paper and this repository."
+type: software
+title: "CAffNet: Hard Constraint-Affine Neural Networks — scoped audit"
+abstract: "A scoped clean-room audit of CAffNet's hard-feasibility, joint null-space, universal-approximation, and named HardNet control claims."
+authors:
+  - family-names: Zhao
+    given-names: Yang
+  - family-names: Lee
+    given-names: Jungeun
+  - family-names: Jeon
+    given-names: Jeong hwan
+  - family-names: Yong
+    given-names: Sze Zheng
+repository-code: "https://github.com/MachineLearning-Nerd/icml26-caffnet-hard-constraint-affine"
+url: "https://arxiv.org/abs/2605.24437"
+date-released: 2026-08-17
+keywords:
+  - ICML 2026
+  - constrained neural networks
+  - universal approximation
+  - clean-room reproduction
+  - audit
