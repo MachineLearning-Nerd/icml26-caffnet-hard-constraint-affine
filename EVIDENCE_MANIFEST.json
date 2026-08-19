@@ -19,7 +19,7 @@
     {"path": "branch-audit.md", "sha256": "b1b6b15b86e58226bbbc5148237a07131102d51953e4368c9f1f6f8820bb2f82"},
     {"path": "claims.json", "sha256": "5cf4ff93acc8330cdbc5cb69570063fe072b4c4f41853f7258600de4d34c60e1"},
     {"path": "reproduction_verdicts.json", "sha256": "c7d4ab3b3b5dbed75dce4da8ec93c70dde9dfe34ed879d439a8c44255fab4ebc"},
-    {"path": "verify_final.py", "sha256": "9f0bb308de0127147e21840fc82bbadb409bbf089c00e84dae8a2da582b83f3c"},
+    {"path": "verify_final.py", "sha256": "3fbb41d3e97bd5ee4f97feb993a02d9238943a77ec86dcc5b15f620c2b5ae2c9"},
     {"path": "docs/CLAIM_EVIDENCE.md", "sha256": "05c079aa54c658e5b4b21dff98db77d94292a3a48ce9ae4ff6d5db3614d36836"},
     {"path": "docs/SOURCE_AUDIT.md", "sha256": "1f0443cc7a452ff0074fcf123b35e334b10579a44b59d18dd21d0119d2ee4b50"},
     {"path": "docs/BRANCH_AUDIT.md", "sha256": "50f4ccb9ba772cc1868c8f75c2f02cee82ac8c7e6f2747a5387d98735d63ade4"},

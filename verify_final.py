@@ -12,10 +12,16 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 REPOSITORY = "icml26-caffnet-hard-constraint-affine"
-CANONICAL = (
-    "MachineLearning-Nerd",
-    "MachineLearning-Nerd@users.noreply.github.com",
-)
+CANONICAL_IDENTITIES = {
+    (
+        "MachineLearning-Nerd",
+        "MachineLearning-Nerd@users.noreply.github.com",
+    ),
+    (
+        "MachineLearning-Nerd",
+        "37579156+MachineLearning-Nerd@users.noreply.github.com",
+    ),
+}
 EXPECTED_BRANCHES = {"main", "experiment/joint-optimization-control"}
 EXPECTED_STATUSES = [
     "verified_scoped",
@@ -192,7 +198,12 @@ def verify_git_state() -> tuple[int, int]:
         if line.strip():
             identities.add(tuple(line.split("\t")))
     require(
-        identities == {(CANONICAL[0], CANONICAL[1], CANONICAL[0], CANONICAL[1])},
+        identities
+        and all(
+            (author_name, author_email) in CANONICAL_IDENTITIES
+            and (committer_name, committer_email) in CANONICAL_IDENTITIES
+            for author_name, author_email, committer_name, committer_email in identities
+        ),
         f"non-canonical reachable identity: {sorted(identities)}",
     )
     require(
