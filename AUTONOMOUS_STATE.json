@@ -24,8 +24,8 @@
     "C3": 1,
     "S1": 1
   },
-  "last_checkpoint": "2026-08-17T01:36:11Z",
-  "last_known_git_commit": "b452490730591328b2a45bb75ea196d1fcaaaeb5",
+  "last_checkpoint": "2026-08-19T13:20:52+05:30",
+  "last_known_git_commit": "9f10d5745c67f6250768c48b4ea3b0f2ae51abd0",
   "publication_allowed": false,
   "overall_verdict": "VERIFIED_SCOPED_WITH_QUALIFICATION",
   "compute_policy": "Use the committed proof and exact-task artifacts for ordinary verification; do not rerun long neural training or unavailable official benchmarks during dossier publication.",
