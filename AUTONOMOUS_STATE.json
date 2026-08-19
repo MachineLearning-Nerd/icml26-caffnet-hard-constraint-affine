@@ -14,7 +14,8 @@
     "coauthor_trailer_cleanup",
     "standardized_dossier_published",
     "dossier_manifest_and_final_verifier",
-    "fresh_clone_verification"
+    "fresh_clone_verification",
+    "machine_readable_reproduction_verdicts"
   ],
   "failed_attempts": [],
   "claim_attempt_counts": {
@@ -26,6 +27,7 @@
   "last_checkpoint": "2026-08-17T01:36:11Z",
   "last_known_git_commit": "b452490730591328b2a45bb75ea196d1fcaaaeb5",
   "publication_allowed": false,
+  "overall_verdict": "VERIFIED_SCOPED_WITH_QUALIFICATION",
   "compute_policy": "Use the committed proof and exact-task artifacts for ordinary verification; do not rerun long neural training or unavailable official benchmarks during dossier publication.",
   "selection_rationale": "CAffNet has executable theorem certificates, exact Theorem 3.5 checks, finite neural corroboration, a named HardNet control, explicit unavailable-artifact limits, and a purpose-based two-branch history.",
   "github_repository": "https://github.com/MachineLearning-Nerd/icml26-caffnet-hard-constraint-affine",
@@ -39,5 +41,18 @@
     "C2": "verified_scoped_with_qualification",
     "C3": "verified_scoped",
     "S1": "scoped_exact_task_audit"
-  }
+  },
+  "dossier_files": [
+    "CLAIM_EVIDENCE.md",
+    "SOURCE_AUDIT.md",
+    "ENVIRONMENT.md",
+    "REPORT.md",
+    "BRANCH_AUDIT.md",
+    "CITATION.cff",
+    "AUTHOR_THANK_YOU.md",
+    "claims.json",
+    "reproduction_verdicts.json",
+    "EVIDENCE_MANIFEST.json",
+    "verify_final.py"
+  ]
 }

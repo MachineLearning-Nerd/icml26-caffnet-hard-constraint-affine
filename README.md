@@ -145,6 +145,7 @@ machine-readable:
 - [REPORT.md](REPORT.md) states the scoped verdict and what is not claimed.
 - [BRANCH_AUDIT.md](BRANCH_AUDIT.md) and [branch-audit.md](branch-audit.md) describe every published branch.
 - [CITATION.cff](CITATION.cff) and [AUTHOR_THANK_YOU.md](AUTHOR_THANK_YOU.md) provide citation and author acknowledgment.
+- [reproduction_verdicts.json](reproduction_verdicts.json) records the machine-readable scoped outcomes and publication gate.
 - [claims.json](claims.json) and [EVIDENCE_MANIFEST.json](EVIDENCE_MANIFEST.json) bind statuses and file hashes.
 
 From a fresh clone, run:

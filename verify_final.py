@@ -41,6 +41,7 @@ REQUIRED_PATHS = [
     "BRANCH_AUDIT.md",
     "branch-audit.md",
     "claims.json",
+    "reproduction_verdicts.json",
     "EVIDENCE_MANIFEST.json",
     "verify_final.py",
     "docs/CLAIM_EVIDENCE.md",
@@ -245,6 +246,18 @@ def verify_artifacts() -> None:
     rows = claims.get("claims")
     require(isinstance(rows, list) and len(rows) == 4, "claims.json must contain four rows")
     require([row.get("status") for row in rows] == EXPECTED_STATUSES, "claim statuses changed")
+
+    verdicts = current_json("reproduction_verdicts.json")
+    require(isinstance(verdicts, dict), "reproduction verdicts are not an object")
+    require(
+        verdicts.get("repository") == f"MachineLearning-Nerd/{REPOSITORY}"
+        and verdicts.get("overall_verdict") == "VERIFIED_SCOPED_WITH_QUALIFICATION"
+        and verdicts.get("publication_allowed") is False,
+        "reproduction verdict header changed",
+    )
+    expected_verdict_statuses = dict(zip(("C1", "C2", "C3", "S1"), EXPECTED_STATUSES))
+    verdict_statuses = {row.get("id"): row.get("status") for row in verdicts.get("claims", [])}
+    require(verdict_statuses == expected_verdict_statuses, "reproduction verdict statuses changed")
 
     state = current_json("AUTONOMOUS_STATE.json")
     require(isinstance(state, dict), "state is not an object")

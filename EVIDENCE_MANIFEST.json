@@ -4,7 +4,7 @@
   "scope": "CAffNet paper identity, theorem certificates, finite corroboration, HardNet exact-task control, branch dossier, and publication gate",
   "entries": [
     {"path": ".gitignore", "sha256": "3b749b1e0d66206ec2fe380c41b0f6416ea4be07c567836918c819f0034f6986"},
-    {"path": "README.md", "sha256": "e555246218216681b0e7d4679f91587a2fad78c49f67b114fe68c9dbe87c0de1"},
+    {"path": "README.md", "sha256": "251e61424ff5de751c7455618441de5201d5175e734873147e6ed9969c3cd40e"},
     {"path": "STATUS.md", "sha256": "69434d3310750d759a7533b57153cefbc195eaf5d767382e1a1337cb8fa6b403"},
     {"path": "pyproject.toml", "sha256": "9769505c08b3df8d917851a8a8d4d017d6e436ea14f5636deefdf7aedd7cd6e8"},
     {"path": "uv.lock", "sha256": "cc6229dbd07bf3b2873f9680c23611d8fa265fd1775fe715469166b629e4efd9"},
@@ -18,7 +18,8 @@
     {"path": "BRANCH_AUDIT.md", "sha256": "13c4968c4ec7dab913d0752dc8accea66f6e800c1b93c909c96588feebc41e6f"},
     {"path": "branch-audit.md", "sha256": "b1b6b15b86e58226bbbc5148237a07131102d51953e4368c9f1f6f8820bb2f82"},
     {"path": "claims.json", "sha256": "5cf4ff93acc8330cdbc5cb69570063fe072b4c4f41853f7258600de4d34c60e1"},
-    {"path": "verify_final.py", "sha256": "8955a2da67430c9b85757552cb47016815ab26b3eaf63a2d6add79576770265b"},
+    {"path": "reproduction_verdicts.json", "sha256": "c7d4ab3b3b5dbed75dce4da8ec93c70dde9dfe34ed879d439a8c44255fab4ebc"},
+    {"path": "verify_final.py", "sha256": "9f0bb308de0127147e21840fc82bbadb409bbf089c00e84dae8a2da582b83f3c"},
     {"path": "docs/CLAIM_EVIDENCE.md", "sha256": "05c079aa54c658e5b4b21dff98db77d94292a3a48ce9ae4ff6d5db3614d36836"},
     {"path": "docs/SOURCE_AUDIT.md", "sha256": "1f0443cc7a452ff0074fcf123b35e334b10579a44b59d18dd21d0119d2ee4b50"},
     {"path": "docs/BRANCH_AUDIT.md", "sha256": "50f4ccb9ba772cc1868c8f75c2f02cee82ac8c7e6f2747a5387d98735d63ade4"},

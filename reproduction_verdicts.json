@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "repository": "MachineLearning-Nerd/icml26-caffnet-hard-constraint-affine",
+  "paper": {
+    "title": "CAffNet: Hard Constraint-Affine Neural Networks",
+    "arxiv": "2605.24437",
+    "openreview": "20hdQQQrA4"
+  },
+  "overall_verdict": "VERIFIED_SCOPED_WITH_QUALIFICATION",
+  "publication_allowed": false,
+  "claims": [
+    {"id": "C1", "status": "verified_scoped", "scope": "Theorem certificate for arbitrary finite input-dependent affine inequality constraints under the stated assumptions."},
+    {"id": "C2", "status": "verified_scoped_with_qualification", "scope": "Projector/gradient identities and five-seed controls pass; fixed orthogonal end-to-end training qualifies stronger superiority wording."},
+    {"id": "C3", "status": "verified_scoped", "scope": "Universal-approximation proof chain and exact Theorem 3.5 constant audit under the paper assumptions."},
+    {"id": "S1", "status": "scoped_exact_task_audit", "scope": "Named HardNet-Aff enforcement-layer comparison on the paper task; no trained-weight or goal-arrival claim."}
+  ],
+  "limitations": [
+    "No official CAffNet implementation or complete paper benchmark release is treated as available.",
+    "Finite training corroboration is not a universal approximation proof.",
+    "publication_allowed remains false for a paper-wide score or complete reproduction."
+  ]
+}
